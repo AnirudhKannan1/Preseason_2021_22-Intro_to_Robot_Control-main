@@ -14,6 +14,8 @@ import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.DriveForward;
+import frc.robot.commands.AutoDrive;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -29,6 +31,8 @@ public class RobotContainer {
   private final TankDrive _tankDrive;
   private final ArcadeDrive arcadeDrive;
   private final TimedDrive timedDrive;
+  private final DriveForward driveForward;
+  private final AutoDrive autoDrive;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -39,6 +43,9 @@ public class RobotContainer {
     _tankDrive = new TankDrive(_driveTrain, _leftJoystick, _rightJoystick);
     arcadeDrive = new ArcadeDrive(_driveTrain, _leftJoystick);
     timedDrive = new TimedDrive(_driveTrain);
+    driveForward = new DriveForward(_driveTrain, 5.0, 5.0);
+    autoDrive = new AutoDrive(_driveTrain);
+
 
     _driveTrain.setDefaultCommand(arcadeDrive);
 
@@ -62,6 +69,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return timedDrive;
+    return autoDrive;
   }
 }

@@ -7,19 +7,19 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-public class DriveForward extends CommandBase {
+public class TurnAngle extends CommandBase {
 
   private final DriveTrain _driveTrain;
   
-  private final double _Distance = 0;
+  private final double _Angle = 0;
   private final double _Speed = 0;
 
   /** Creates a new TankDrive. */
-  public DriveForward(DriveTrain dt, double distance, double speed) {
+  public TurnAngle(DriveTrain dt, double angle, double speed) {
     // Use uirements() here to declare subsystem dependencies.
     _driveTrain = dt;
 
-    distance = _Distance;
+    angle = _Angle;
     speed = _Speed;
 
 
@@ -30,14 +30,14 @@ public class DriveForward extends CommandBase {
   @Override
   public void initialize() 
   {
-    _driveTrain.resetEncoders();
+    _driveTrain.resetNav();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() 
   {
-      _driveTrain.tankDrive(_Speed, _Speed);
+      _driveTrain.tankDrive(_Speed, 0);
   }
 
   // Called once the command ends or is interrupted.
@@ -45,13 +45,13 @@ public class DriveForward extends CommandBase {
   public void end(boolean interrupted) 
   {
       _driveTrain.tankDrive(0, 0);
-      _driveTrain.resetEncoders();
+      _driveTrain.resetNav();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
   {
-      return _driveTrain.getPosition() > _Distance;
+      return _driveTrain.getAngle() > _Angle;
   }
 }

@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -17,10 +16,11 @@ import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
 
-  private final WPI_TalonSRX _leftDriveTalon;
+  public static double getPosition;
+private final WPI_TalonSRX _leftDriveTalon;
   private final WPI_TalonSRX _righttDriveTalon;
 
-  private ARHS navx = new ARHS(SPI.Port.kMXP);
+  private AHRS navx = new AHRS(SPI.Port.kMXP);
 
   private DifferentialDrive _diffDrive;
 
@@ -34,7 +34,7 @@ public class DriveTrain extends SubsystemBase {
     _righttDriveTalon.configFactoryDefault();
 
 
-    _leftDriveTalon.setInverted(false);
+    _leftDriveTalon.setInverted(false); 
     _righttDriveTalon.setInverted(false);
 
     _leftDriveTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
@@ -63,10 +63,10 @@ public class DriveTrain extends SubsystemBase {
 
   }
 
+ 
   public void resetEncoders()
   {
     _leftDriveTalon.setSelectedSensorPosition(0,0,10);
-    _righttDriveTalon.setSelectedSensorPosition(0,0,10);
   }
 
   public double getPosition()
@@ -77,6 +77,16 @@ public class DriveTrain extends SubsystemBase {
   public double getVelocity()
   {
     return _leftDriveTalon.getSensorCollection().getPulseWidthVelocity();
+  }
+
+  public double getAngle()
+  {
+    return navx.getAngle();
+  }
+
+  public void resetNav()
+  {
+    navx.reset();
   }
 
 }
