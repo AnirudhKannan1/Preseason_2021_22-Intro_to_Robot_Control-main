@@ -12,11 +12,25 @@ import frc.robot.subsystems.DriveTrain;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoDrive extends SequentialCommandGroup {
   
-    
+
   public AutoDrive(DriveTrain _driveTrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    addCommands(new DriveForwardPID(_driveTrain, 1000.0, 0.0));
+
+    /*addCommands(new TurnAngle(_driveTrain, 90.0, 0.4));
+
     addCommands(new DriveForward(_driveTrain, 40.0, 0.4));
+
+    addCommands(new TurnAngle(_driveTrain, 90.0, 0.4));
+
+    addCommands(new DriveForward(_driveTrain, 40.0, 0.4));
+
+    addCommands(new TurnAngle(_driveTrain, 90.0, 0.4));
+
+    addCommands(new DriveForward(_driveTrain, 40.0, 0.4));*/
+
+    
 
   }
 }
